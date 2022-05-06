@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "programmer": "arduino:arduinoisp",
+    "port": "COM7"
+}
