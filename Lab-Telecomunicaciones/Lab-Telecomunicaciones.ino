@@ -2,6 +2,9 @@
 #include <UIPEthernet.h>
 #include <Servo.h>
 
+#define const_status 150
+#define const_instruc 130
+
 EthernetServer server = EthernetServer(22);
 //////// VAriables de json //////////////
 // Estado
@@ -13,15 +16,13 @@ int variable_0=0;
 int variable_1=0;
 int variable_2=0;
 int variable_3=0;
-////////////////////
-
 
 ////////////// Funciones  ////////////////////
 void wifi_24_ghz(int azimut, int elevacion);
 void rad_def_soft(bool iniLab, int intensidad_max, int intensidad_min, int modulacion, int codificacion);
-
-//////////// declaración de salidas ///////////////////
-
+//-------------------//
+void get_json(EthernetClient client);
+void post_json(char instrucciones[const_instruc], EthernetClient client);
 
 // Declaramos la variable para controlar el servo
 Servo servo_azimut;
@@ -41,7 +42,7 @@ void setup()
   Serial.println(F("Server is ready."));
   Serial.print(F("Please connect to http://"));
   Serial.println(Ethernet.localIP());
-  
+
 // Iniciamos el pin de cada servo
   servo_azimut.attach(9);
   servo_elevacion.attach(3);
@@ -51,9 +52,8 @@ void loop()
 {
 
 //////////// Strings de comunicación /////////////
-char status[150] = {0};
-char instrucciones[130] = {0};
-char operacion[20] = {0};
+char status[const_status] = {0};
+char instrucciones[const_instruc] = {0};
 
   // Wait for an incomming connection
   EthernetClient client = server.available(); 
@@ -67,107 +67,104 @@ char operacion[20] = {0};
     client.readBytesUntil('\r', status, sizeof(status));
     Serial.println("status:");
     Serial.println(status);
-  // Comparo la cadena recibida con las opcciones
-    strncpy(operacion,status,15);
-    Serial.println("operacion: ");
-    Serial.println(operacion);
 //obtengo las instrucciones del formato json
     strncpy(instrucciones,&status[15],(sizeof(status)-15));
-    Serial.println("instrucciones:");
-    Serial.println(instrucciones);   
+  //------ GET ----- //
     if (strstr(status, "GET / HTTP/1.1") != NULL) 
     {
-      
-      StaticJsonDocument<128> doc;     
-      JsonArray Estado = doc.createNestedArray("Estado");
-      Estado.add(num_Lab);
-      Estado.add(subLab);
-      Estado.add(iniLab);
-
-      JsonArray Analogico = doc.createNestedArray("Analogico");
-      Analogico.add(variable_0);
-      Analogico.add(variable_1);
-      Analogico.add(variable_2);
-      Analogico.add(variable_3);
-
-      Serial.print(F("Sending: "));
-      serializeJson(doc, Serial);
-      Serial.println();
-// Write response headers
-      client.println(F("HTTP/1.0 200 OK"));
-      client.println(F("Content-Type: application/json"));
-// client.println(F("Connection: close"));
-      client.print(F("Content-Length: "));
-      client.println(measureJsonPretty(doc));
-      client.println(); 
-// Write JSON document
-      serializeJsonPretty(doc, client);
-// Disconnect
-// client.stop();
-
-      }
-///////////////////////////// POST ///////////////////////////////////
+      get_json(client);
+    }
+  //------- POST -----//      
     if (strstr(status, "POST / HTTP/1.1") !=NULL) 
     {
-        Serial.println("Solicitud de escritura recibida");
-        client.println(F("HTTP/1.1 200 OK"));
-        client.println();
-        StaticJsonDocument<128> doc;
-        // Deserializo
-        DeserializationError error = deserializeJson(doc, instrucciones);
-        
-        if (error) 
-        {
-          Serial.print(F("deserializeJson() failed: "));
-          Serial.println(error.f_str());
-          return;
-        }
-        
-        JsonArray Estado = doc["Estado"];
-        num_Lab = Estado[0]; // 0 [Sist Dig], 1 [Sist Control], 2[Telecomunicaciones], 3[Fisica]
-        subLab = Estado[1]; // true[SubLab 1], false [SubLab 2]
-        iniLab = Estado[2]; // true[Inicia Experimento], false[Finaliza Experimento]
-
-        JsonArray Analogico = doc["Analogico"];
-        variable_0 = Analogico[0]; // 
-        variable_1 = Analogico[1]; // 
-        variable_2 = Analogico[2]; // 
-        variable_3 = Analogico[3]; // 
-
-      if(num_Lab==2)
-      {
-        if (subLab and iniLab)
-        {
-          Serial.println("Sub - Laboratorio: Wifi 2.4 GHz"); 
-          wifi_24_ghz(variable_0, variable_1);
-        }
-        else if (!subLab and iniLab)
-        {
-          Serial.println("Sub - Laboratorio: Radio definida por Software");  
-          rad_def_soft(variable_0, variable_1, variable_2, variable_3);
-        }
-      }
-      else
-      {
-        Serial.println("Laboratorio incorrecto");    
-      }
+      post_json(instrucciones, client);
     }
   }
 }
 
+void get_json(EthernetClient client)
+{
+  StaticJsonDocument<128> doc;     
+  JsonArray Estado = doc.createNestedArray("Estado");
+  Estado.add(num_Lab);
+  Estado.add(subLab);
+  Estado.add(iniLab);
+
+  JsonArray Analogico = doc.createNestedArray("Analogico");
+  Analogico.add(variable_0);
+  Analogico.add(variable_1);
+  Analogico.add(variable_2);
+  Analogico.add(variable_3);
+
+  Serial.print(F("Sending: "));
+  serializeJson(doc, Serial);
+  Serial.println();
+// Write response headers
+  client.println(F("HTTP/1.0 200 OK"));
+  client.println(F("Content-Type: application/json"));
+// client.println(F("Connection: close"));
+  client.print(F("Content-Length: "));
+  client.println(measureJsonPretty(doc));
+  client.println(); 
+// Write JSON document
+  serializeJsonPretty(doc, client);
+// Disconnect
+// client.stop();  
+}
+
+void post_json(char instrucciones[const_instruc], EthernetClient client)
+{
+    Serial.println("Solicitud de escritura recibida");
+    client.println(F("HTTP/1.1 200 OK"));
+    client.println();
+    StaticJsonDocument<128> doc;
+    // Deserializo
+    DeserializationError error = deserializeJson(doc, instrucciones);
+    
+    if (error) 
+    {
+      Serial.print(F("deserializeJson() failed: "));
+      Serial.println(error.f_str());
+      return;
+    }
+    
+    JsonArray Estado = doc["Estado"];
+    num_Lab = Estado[0]; // 0 [Sist Dig], 1 [Sist Control], 2[Telecomunicaciones], 3[Fisica]
+    subLab = Estado[1]; // true[SubLab 1], false [SubLab 2]
+    iniLab = Estado[2]; // true[Inicia Experimento], false[Finaliza Experimento]
+
+    JsonArray Analogico = doc["Analogico"];
+    variable_0 = Analogico[0]; // 
+    variable_1 = Analogico[1]; // 
+    variable_2 = Analogico[2]; // 
+    variable_3 = Analogico[3]; // 
+
+  if(num_Lab==2)
+  {
+    if (subLab and iniLab)
+    {
+      Serial.println("Sub - Laboratorio: Wifi 2.4 GHz"); 
+      wifi_24_ghz(variable_0, variable_1);
+    }
+    else if (!subLab and iniLab)
+    {
+      Serial.println("Sub - Laboratorio: Radio definida por Software");  
+      rad_def_soft(variable_0, variable_1, variable_2, variable_3);
+    }
+  }
+  else
+  {
+    Serial.println("Laboratorio incorrecto");    
+  }
+//  get_json(client);
+}
 
 void wifi_24_ghz(int azimut, int elevacion){
     if (0 <= azimut and azimut <= 180) 
     {
       Serial.println("Azimut:");
       Serial.println(azimut);
-
-      for (int inter_azimut=0; inter_azimut <= azimut; inter_azimut = inter_azimut +10)
-      {
-        servo_azimut.write(inter_azimut);  // Desplazamos a la posición 0º
-        delay(500);
-        Serial.println(inter_azimut);
-      }
+      servo_azimut.write(azimut);  // Desplazamos a la posición deseada
       delay(1000);
     }
     else
@@ -176,18 +173,11 @@ void wifi_24_ghz(int azimut, int elevacion){
     {
       Serial.println("Elevación:");
       Serial.println(elevacion);
-
-      for (int inter_elevacion =0; inter_elevacion <= elevacion; inter_elevacion = inter_elevacion+10)
-      {
-        servo_azimut.write(inter_elevacion);  // Desplazamos a la posición 0º
-        delay(500);
-        Serial.println(inter_elevacion);
-      }
+      servo_elevacion.write(elevacion);  // Desplazamos a la posición deseada
       delay(1000);
     }    
     else
       Serial.println("El valor de elevacion no es correcto. Debe ser entre 0 y 90º");
-
 }
 
 void rad_def_soft(int intensidad_max, int intensidad_min, int modulacion, int codificacion){
