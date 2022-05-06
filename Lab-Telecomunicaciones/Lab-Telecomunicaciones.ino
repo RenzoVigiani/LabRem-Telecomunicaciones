@@ -1,48 +1,34 @@
 #include <ArduinoJson.h>
 #include <UIPEthernet.h>
+#include <Servo.h>
 
 EthernetServer server = EthernetServer(22);
+//////// VAriables de json //////////////
+// Estado
+int num_Lab=0;
+bool subLab=true;
+bool iniLab=true;
+// Analogico
+int variable_0=0;
+int variable_1=0;
+int variable_2=0;
+int variable_3=0;
+////////////////////
+
 
 ////////////// Funciones  ////////////////////
-void ControlPost(int num_Lab, bool subLab, bool iniLab, int variable_0, int variable_1, int variable_2, int variable_3);
-void wifi_24_ghz(bool iniLab, int azimut, int elevacion);
-void sdr(bool iniLab, int intensidad_max, int intensidad_min, int modulacion, int codificacion);
-void valorSalidas(int);
-void enciendoled(bool p0,bool p1,bool p2,bool p3);
-void prueva_lab(int vueltas, bool Sentido);
-void stopMotor(void);
+void wifi_24_ghz(int azimut, int elevacion);
+void rad_def_soft(bool iniLab, int intensidad_max, int intensidad_min, int modulacion, int codificacion);
 
 //////////// declaración de salidas ///////////////////
-const int Led_0=7;
-const int Led_1=8;
-const int Led_2=9;
-const int Led_3=10;
 
-/////////// salidas para el motor ////////////
-#define IN1  3
-#define IN2  4
-#define IN3  5
-#define IN4  6
 
-//secuencia de vueltas
-/*  
-int paso [8][4] =
-  {
-  {1, 0, 0, 0},
-  {1, 1, 0, 0},
-  {0, 1, 0, 0},
-  {0, 1, 1, 0},
-  {0, 0, 1, 0},
-  {0, 0, 1, 1},
-  {0, 0, 0, 1},
-  {1, 0, 0, 1}
-  };
-  int vueltas=100;
-  */
+// Declaramos la variable para controlar el servo
+Servo servo_azimut;
+Servo servo_elevacion;
 
-//  int dir=0;
-/////////////////////////////////////
-void setup() {
+void setup() 
+{
   uint8_t mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
   IPAddress myIP(172,20,5,140);
   // Initialize serial port
@@ -56,35 +42,13 @@ void setup() {
   Serial.print(F("Please connect to http://"));
   Serial.println(Ethernet.localIP());
   
-  // declaro salidas para leds
-  pinMode(Led_0, OUTPUT);
-  pinMode(Led_1, OUTPUT);
-  pinMode(Led_2, OUTPUT);
-  pinMode(Led_3, OUTPUT);
-  pinMode(13, OUTPUT);
-  digitalWrite(Led_0,LOW);
-  digitalWrite(Led_1,LOW);
-  digitalWrite(Led_2,LOW);
-  digitalWrite(Led_3,LOW);
-  // declaro salidas para motor
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  pinMode(IN3, OUTPUT);
-  pinMode(IN4, OUTPUT);
+// Iniciamos el pin de cada servo
+  servo_azimut.attach(9);
+  servo_elevacion.attach(3);
   }
 
-void loop() {
-//////// VAriables de json //////////////
-// Estado
-int num_Lab=0;
-bool subLab=true;
-bool iniLab=true;
-// Analogico
-int variable_0=0;
-int variable_1=0;
-int variable_2=0;
-int variable_3=0;
-////////////////////
+void loop() 
+{
 
 //////////// Strings de comunicación /////////////
 char status[150] = {0};
@@ -98,7 +62,8 @@ char operacion[20] = {0};
   Serial.println();
   Serial.println(F("New client"));
   // Read the request (we ignore the content in this example)
-  while (client.available()) {
+  while (client.available()) 
+  {
     client.readBytesUntil('\r', status, sizeof(status));
     Serial.println("status:");
     Serial.println(status);
@@ -110,7 +75,8 @@ char operacion[20] = {0};
     strncpy(instrucciones,&status[15],(sizeof(status)-15));
     Serial.println("instrucciones:");
     Serial.println(instrucciones);   
-    if (strstr(status, "GET / HTTP/1.1") != NULL) {
+    if (strstr(status, "GET / HTTP/1.1") != NULL) 
+    {
       
       StaticJsonDocument<128> doc;     
       JsonArray Estado = doc.createNestedArray("Estado");
@@ -137,11 +103,12 @@ char operacion[20] = {0};
 // Write JSON document
       serializeJsonPretty(doc, client);
 // Disconnect
- client.stop();
+// client.stop();
 
       }
 ///////////////////////////// POST ///////////////////////////////////
-    if (strstr(status, "POST / HTTP/1.1") !=NULL) {
+    if (strstr(status, "POST / HTTP/1.1") !=NULL) 
+    {
         Serial.println("Solicitud de escritura recibida");
         client.println(F("HTTP/1.1 200 OK"));
         client.println();
@@ -149,7 +116,8 @@ char operacion[20] = {0};
         // Deserializo
         DeserializationError error = deserializeJson(doc, instrucciones);
         
-        if (error) {
+        if (error) 
+        {
           Serial.print(F("deserializeJson() failed: "));
           Serial.println(error.f_str());
           return;
@@ -166,46 +134,64 @@ char operacion[20] = {0};
         variable_2 = Analogico[2]; // 
         variable_3 = Analogico[3]; // 
 
-        ControlPost(num_Lab ,subLab, iniLab, variable_0, variable_1,variable_2,variable_3);
+      if(num_Lab==2)
+      {
+        if (subLab and iniLab)
+        {
+          Serial.println("Sub - Laboratorio: Wifi 2.4 GHz"); 
+          wifi_24_ghz(variable_0, variable_1);
+        }
+        else if (!subLab and iniLab)
+        {
+          Serial.println("Sub - Laboratorio: Radio definida por Software");  
+          rad_def_soft(variable_0, variable_1, variable_2, variable_3);
+        }
+      }
+      else
+      {
+        Serial.println("Laboratorio incorrecto");    
+      }
     }
   }
 }
 
-void ControlPost(int num_Lab, bool subLab, bool iniLab, int variable_0, int variable_1, int variable_2, int variable_3){
-  if(num_Lab== 2){
-    Serial.println("Laboratorio: Telecomunicaciones");
-    if(subLab){
-      Serial.println("Sub - Laboratorio: Enlace Wifi 2.4GHz");
-      wifi_24_ghz(iniLab, variable_0,variable_1);
-    }
-    else{
-      Serial.println("Sub - Laboratorio: Enlace Radio definido por Software");
-      sdr(iniLab, variable_0,variable_1,variable_2,variable_3);
-    }
-  }
-  else{
-      Serial.println("Error: Laboratorio Incorrecto");
-  }
-}
 
-void wifi_24_ghz(bool iniLab, int azimut, int elevacion){
-  if(iniLab){
-    if (0 <= azimut <= 180) {
-      digitalWrite(Led_0,true);
+void wifi_24_ghz(int azimut, int elevacion){
+    if (0 <= azimut and azimut <= 180) 
+    {
+      Serial.println("Azimut:");
       Serial.println(azimut);
+
+      for (int inter_azimut=0; inter_azimut <= azimut; inter_azimut = inter_azimut +10)
+      {
+        servo_azimut.write(inter_azimut);  // Desplazamos a la posición 0º
+        delay(500);
+        Serial.println(inter_azimut);
+      }
+      delay(1000);
     }
-    if (0 <= elevacion <= 90) {
-      digitalWrite(Led_1,true);
+    else
+      Serial.println("El valor de azimut no es correcto. Debe ser entre 0 y 180º");
+    if (0 <= elevacion and elevacion <= 90) 
+    {
+      Serial.println("Elevación:");
       Serial.println(elevacion);
-    }
-  }
-  else{
-    Serial.println("Esperando para iniciar el Laboratorio...");
-  }
+
+      for (int inter_elevacion =0; inter_elevacion <= elevacion; inter_elevacion = inter_elevacion+10)
+      {
+        servo_azimut.write(inter_elevacion);  // Desplazamos a la posición 0º
+        delay(500);
+        Serial.println(inter_elevacion);
+      }
+      delay(1000);
+    }    
+    else
+      Serial.println("El valor de elevacion no es correcto. Debe ser entre 0 y 90º");
+
 }
 
-void sdr(bool iniLab, int intensidad_max, int intensidad_min, int modulacion, int codificacion){
-  if(iniLab){
+void rad_def_soft(int intensidad_max, int intensidad_min, int modulacion, int codificacion){
+/*  if(iniLab){
     switch (modulacion)
     {
     case 1:
@@ -233,5 +219,5 @@ void sdr(bool iniLab, int intensidad_max, int intensidad_min, int modulacion, in
   }
   else{
     Serial.println("Esperando para iniciar el Laboratorio...");
-  }
+  }*/
 }
