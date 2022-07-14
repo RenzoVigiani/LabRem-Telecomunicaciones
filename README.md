@@ -1,23 +1,29 @@
 # Protocolo para los laboratorios de "Telecomunicaciones"
 El procedimiento de comunicación es el siguiente.
 Cada vez que se quiere modificar algun dato en el laboratorio. El Servidor debe enviar un
-
-    POST /HTTP/1.1 + <JSON a enviar>
+```Ruby 
+POST /HTTP/1.1 + <JSON a enviar>
+```
 
 #### Json a enviar (ejemplo)
- 
-    { "Estado": [0,true,false],"Analogico": [45,90]}
+
+```Ruby 
+{"Estado": [0,true,false],"Analogico": [45,90]}
+```
 
 Y para obtener avances de los datos o reporte de los datos debe enviar un:
 
-      GET /HTTP/1.1
+```Ruby 
+GET /HTTP/1.1
+```
 
 De esta forma el Arduino responde ante una petición.
 
 #### Json a recibir (ejemplo)
- 
-    { "Estado": [0,true,false],"Analogico": [50,85], "Error": 0}
 
+```Ruby  
+{ "Estado": [0,true,false],"Analogico": [50,85], "Error": 0}
+```
 
 ## Sintaxis
 
@@ -49,13 +55,16 @@ Se utilizan 2 servo motores uno para cambio de angulo de azimut y otro para el a
     - Elevación: 0 - 90 [deg]
 
 ***Enlace de Radio por software (A definir)***
+Here is a simple flow chart:
+
+> ¡No se realiza con ARDUINO!
 
 Se utiliza los parametros elegidos por el usuario en base a las siguientes tablas.
 
 - Variable a utilizar:
   - Analogico: [Intensidad_Min, Intensidad_Max, Modulacion , Codificacion]
 
-|Nivel de intensidad [dB] |  |
+|Nivel de intensidad | [dB] |
 | ------------ | ------------ |
 |Máximo        |  50 / 80 / 100 / 120|
 |Minimo        |  10 / 15 / 20 / 25|
@@ -74,13 +83,20 @@ Se utiliza los parametros elegidos por el usuario en base a las siguientes tabla
 |Codificación 1|  1 |
 |Codificación 2|  2 |
 |Codificación 3|  3 |
+
+## Diagramas
+
+
+**Arduino Mega 2560**
+Pin Out
+<img alt = "Arduino Mega" src="https://raw.githubusercontent.com/RenzoVigiani/LabRem-SistemasDig/main/Imagenes/Arduino-Mega-Pinout.png" width=1920>
+
 **Enlace Wifi 2.4 GHz**
-
 Diagrama general
 
-![Enlace Wifi 2.4 GHz](https://raw.githubusercontent.com/RenzoVigiani/Laboratorios-Remotos/Telecomunicaciones/Imagenes/wifi2-4GHz.png)  
+<img alt = "Enlace Wifi 2.4 GHz" src="https://raw.githubusercontent.com/RenzoVigiani/Laboratorios-Remotos/Telecomunicaciones/Imagenes/wifi2-4GHz.png" width=1920>
+
 **Enlace Radio definido por Software**
-
 Diagrama general
 
-![Enlace Radio definido por Software](https://raw.githubusercontent.com/RenzoVigiani/Laboratorios-Remotos/Telecomunicaciones/Imagenes/sdr.png)
+<img alt = "Enlace Radio definido por Software" src="https://raw.githubusercontent.com/RenzoVigiani/Laboratorios-Remotos/Telecomunicaciones/Imagenes/sdr.png" width=1920>
