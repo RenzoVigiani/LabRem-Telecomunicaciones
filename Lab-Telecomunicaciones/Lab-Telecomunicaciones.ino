@@ -196,6 +196,7 @@ void wifi_24_ghz(int azimut, int elevacion){
     }
     if(ang_azimut_act==azimut){
       servo_azimut.write(azimut);  // Desplazamos a la posición deseada
+      bandera_rep = 1;
     }
   }
   else{ // Error 1
@@ -215,6 +216,7 @@ void wifi_24_ghz(int azimut, int elevacion){
     }
     if(ang_elevacion_act==elevacion){
       servo_elevacion.write(elevacion);  // Desplazamos a la posición deseada
+      bandera_rep = 1;
     }
   }    
   else{ // Error 2
