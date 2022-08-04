@@ -42,17 +42,17 @@ uint8_t Errores = 0;
   int variable_0=0;
   int variable_1=0;
 //--- Variables auxiliares ---//
-  int ang_azimut_act; //Angulos actuales de azimut
+  int ang_azimut_act=90; //Angulos actuales de azimut
   int ang_elevacion_act; //Angulos actuales de azimut
   bool bandera_rep=0; // bandera para limitar la cantidad de repeticiones de mensaje de lab incorrecto 
 
 // Constantes auxiliares
   //Azimut entre (-30º y +30º)
-  const int limite_min_azimut=-60; // Indica el minimo valor que puede tomar distancia
-  const int limite_max_azimut=60; // Indica el minimo valor que puede tomar distancia
+  const int limite_min_azimut=0; // Indica el minimo valor que puede tomar distancia
+  const int limite_max_azimut=180; // Indica el minimo valor que puede tomar distancia
   //Elevación entre (-30º y +30º)
-  const int limite_min_elevacion=-30; // indica el minimo valor que puede tomar distancia.
-  const int limite_max_elevacion=30; // indica el minimo valor que puede tomar distancia.
+  const int limite_min_elevacion=0; // indica el minimo valor que puede tomar distancia.
+  const int limite_max_elevacion=90; // indica el minimo valor que puede tomar distancia.
 
 void setup(){
   uint8_t myMAC[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED}; // defino mac del dispositivo.
@@ -120,7 +120,8 @@ EthernetClient client = server.available();
       if (strstr(Mensaje_recibido, "POST /HTTP/1.1") !=NULL) { // Compruebo si llega un POST y respondo, habilito banderas.
         Errores=0;
         if(bandera_rep==1)bandera_rep=0;//reinicio bandera de repetición cuando tengo un mje nuevo.
-        Serial.println("Solicitud de escritura recibida");        
+        Serial.println("Solicitud de escritura recibida"); 
+         Serial.println(ang_azimut_act); 
         client.println();
         client.println(F("HTTP/1.1 200 OK"));
         client.println();
@@ -183,7 +184,7 @@ void Control(){
  * @param elevacion - Angulo de inclinación Elevación
  */
 void wifi_24_ghz(int azimut, int elevacion){
-  if (limite_min_azimut <= azimut and azimut <= limite_max_azimut){
+  if ((limite_min_azimut <= azimut) and (azimut <= limite_max_azimut)){
     // Serial.println("Azimut:");
     // Serial.println(azimut);
     if(ang_azimut_act<azimut){
@@ -191,11 +192,11 @@ void wifi_24_ghz(int azimut, int elevacion){
       servo_azimut.write(ang_azimut_act);  // Desplazamos a la posición deseada    
     }
     if(ang_azimut_act>azimut){
-      ang_azimut_act=ang_azimut_act--;
+      ang_azimut_act--;
       servo_azimut.write(ang_azimut_act);  // Desplazamos a la posición deseada    
     }
     if(ang_azimut_act==azimut){
-      servo_azimut.write(azimut);  // Desplazamos a la posición deseada
+      servo_azimut.write(azimut);  // Desplazamos   a la posición deseada
       bandera_rep = 1;
     }
   }
@@ -203,25 +204,25 @@ void wifi_24_ghz(int azimut, int elevacion){
     Serial.println("El valor de azimut no es correcto. Debe ser entre 0 y 180º");
     Errores=1;
   } 
-  if (limite_min_elevacion <= elevacion and elevacion <= limite_max_elevacion){ // Modifico angulo de elevación
-    // Serial.println("Elevación:");
-    // Serial.println(elevacion);
-    if(ang_elevacion_act<elevacion){
-      ang_elevacion_act++;
-      servo_elevacion.write(ang_elevacion_act);  // Desplazamos a la posición deseada    
-    }
-    if(ang_elevacion_act>elevacion){
-      ang_elevacion_act=ang_elevacion_act--;
-      servo_elevacion.write(ang_elevacion_act);  // Desplazamos a la posición deseada    
-    }
-    if(ang_elevacion_act==elevacion){
-      servo_elevacion.write(elevacion);  // Desplazamos a la posición deseada
-      bandera_rep = 1;
-    }
-  }    
-  else{ // Error 2
-    Serial.println("El valor de elevacion no es correcto. Debe ser entre 0 y 90º");
-    Errores=2;
-  }
+//  if ((limite_min_elevacion <= elevacion) and (elevacion <= limite_max_elevacion)){ // Modifico angulo de elevación
+//    // Serial.println("Elevación:");
+//    // Serial.println(elevacion);
+//    if(ang_elevacion_act<elevacion){
+//      ang_elevacion_act++;
+//      servo_elevacion.write(ang_elevacion_act);  // Desplazamos a la posición deseada    
+//    }
+//    if(ang_elevacion_act>elevacion){
+//      ang_elevacion_act=ang_elevacion_act--;
+//      servo_elevacion.write(ang_elevacion_act);  // Desplazamos a la posición deseada    
+//    }
+//    if(ang_elevacion_act==elevacion){
+//      servo_elevacion.write(elevacion);  // Desplazamos a la posición deseada
+//      bandera_rep = 1;
+//    }
+//  }    
+//  else{ // Error 2
+//    Serial.println("El valor de elevacion no es correcto. Debe ser entre 0 y 90º");
+//    Errores=2;
+//  }
   delay(20);
 }
