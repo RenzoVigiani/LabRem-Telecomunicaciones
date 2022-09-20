@@ -52,7 +52,7 @@ Se utilizan 2 servo motores uno para cambio de angulo de azimut y otro para el a
 - Variable a utilizar:
   - Analogico: [azimut, elevación]
     - Azimut: 0 - 180 [deg]
-    - Elevación: 0 - 90 [deg]
+    - Elevación: 0 - 180 [deg]
 
 ***Enlace de Radio por software (A definir)***
 Here is a simple flow chart:
@@ -95,6 +95,10 @@ Pin Out
 Diagrama general
 
 <img alt = "Enlace Wifi 2.4 GHz" src="https://raw.githubusercontent.com/RenzoVigiani/Laboratorios-Remotos/Telecomunicaciones/Imagenes/wifi2-4GHz.png" width=1920>
+
+Diagrama general
+
+<img alt = "Vista frontal" src="https://raw.githubusercontent.com/RenzoVigiani/Laboratorios-Remotos/Telecomunicaciones/Imagenes/wifi-vista-frontal.png" width=1920>
 
 **Enlace Radio definido por Software**
 Diagrama general
