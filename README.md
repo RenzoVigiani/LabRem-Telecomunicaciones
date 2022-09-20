@@ -94,13 +94,13 @@ Pin Out
 **Enlace Wifi 2.4 GHz**
 Diagrama general
 
-<img alt = "Enlace Wifi 2.4 GHz" src="https://raw.githubusercontent.com/RenzoVigiani/Laboratorios-Remotos/Telecomunicaciones/Imagenes/wifi2-4GHz.png" width=1920>
+<img alt = "Enlace Wifi 2.4 GHz" src="https://github.com/RenzoVigiani/LabRem-Telecomunicaciones/blob/c2869733b8db76e671d302c234c771273dfe231c/Imagenes/wifi2-4GHz.png?raw=true" width=1920>
 
-Diagrama general
+Vista frontal
 
-<img alt = "Vista frontal" src="https://raw.githubusercontent.com/RenzoVigiani/Laboratorios-Remotos/Telecomunicaciones/Imagenes/wifi-vista-frontal.png" width=1920>
+<img alt ="Vista frontal" src="https://github.com/RenzoVigiani/LabRem-Telecomunicaciones/blob/c2869733b8db76e671d302c234c771273dfe231c/Imagenes/wifi-vista-frontal.png?raw=true" width=1920>
 
 **Enlace Radio definido por Software**
 Diagrama general
 
-<img alt = "Enlace Radio definido por Software" src="https://raw.githubusercontent.com/RenzoVigiani/Laboratorios-Remotos/Telecomunicaciones/Imagenes/sdr.png" width=1920>
+<img alt = "Enlace Radio definido por Software" src="https://github.com/RenzoVigiani/LabRem-Telecomunicaciones/blob/c2869733b8db76e671d302c234c771273dfe231c/Imagenes/sdr.png?raw=true" width=1920>
