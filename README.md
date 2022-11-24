@@ -34,6 +34,7 @@ Es un array conformado por 3 elementos en el siguiente orden: [Laboratorio, SubL
 |-|-----|-----|-----------------------------|--------|
 |2|true |true |Telecomunicaciones: Wifi 2.4G|Inicia  |
 |2|true |false|Telecomunicaciones: Wifi 2.4G|Finaliza|
+
 **Error**
 Es una variable numerica que representa un mensaje de error.
 
@@ -43,6 +44,7 @@ Es una variable numerica que representa un mensaje de error.
 | Error limites de angulo de azimut.    |    1    |
 | Error limites de angulo de elevación  |    2    |
 | Error de laboratorio incorrecto       |    3    |
+
 **Elementos por Laboratorio**
 
 ***WIFI 2.4***
@@ -94,21 +96,20 @@ Pin Out
 **Enlace Wifi 2.4 GHz**
 Diagrama general
 
-<img alt = "Enlace Wifi 2.4 GHz" src="https://github.com/RenzoVigiani/LabRem-Telecomunicaciones/blob/c2869733b8db76e671d302c234c771273dfe231c/Imagenes/wifi2-4GHz.png?raw=true" width=1920>
+<img alt = "Enlace Wifi 2.4 GHz" src="https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/wifi2-4GHz.png" width=1920>
 
-<img alt = "Enlace Radio definido por Software" src="https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/diagrama_en_lab.png" width=1920>
+<img alt = "Enlace Wifi 2.4 GHz" src="https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/diagrama_en_lab.png" width=1920>
 Vista frontal
 
-<img alt ="Vista frontal" src="https://github.com/RenzoVigiani/LabRem-Telecomunicaciones/blob/c2869733b8db76e671d302c234c771273dfe231c/Imagenes/wifi-vista-frontal.png?raw=true" width=1920>
+<img alt ="Vista frontal" src="https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/wifi-vista-frontal.png" width=1920>
 
 **Enlace Radio definido por Software**
 Diagrama general
 
-<img alt = "Enlace Radio definido por Software" src="https://github.com/RenzoVigiani/LabRem-Telecomunicaciones/blob/c2869733b8db76e671d302c234c771273dfe231c/Imagenes/sdr.png?raw=true" width=1920>
+<img alt = "Enlace Radio definido por Software" src="https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/sdr.png" width=1920>
 
 | |Diseños 3D ||
 |--|--|--|
 |Caja sistema elevación|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Caja_servo_1.jpg)|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Caja_servo_5.jpg)|
 |Soporte sistema azimut|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Soporte_caja_1.jpg)|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Soporte_caja_2.jpg)|
-|Sistema de movimiento Azimut-Elevación|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Completo_4.jpg)|![Sistema de movimiento Azimut - Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Completo_2.jpg)|
-|Visualización virtual|![Sistema de movimiento Azimut - Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/skp_diseños.png)||
+|Sistema de movimiento Azimut-Elevación|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Completo_4.jpg)![Sistema de movimiento Azimut - Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Completo_2.jpg)|![Sistema de movimiento Azimut - Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/skp_diseños.png)![Sistema de movimiento Azimut - Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Completo_5.jpg)|
