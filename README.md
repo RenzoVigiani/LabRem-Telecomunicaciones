@@ -96,6 +96,7 @@ Diagrama general
 
 <img alt = "Enlace Wifi 2.4 GHz" src="https://github.com/RenzoVigiani/LabRem-Telecomunicaciones/blob/c2869733b8db76e671d302c234c771273dfe231c/Imagenes/wifi2-4GHz.png?raw=true" width=1920>
 
+<img alt = "Enlace Radio definido por Software" src="https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/diagrama_en_lab.png" width=1920>
 Vista frontal
 
 <img alt ="Vista frontal" src="https://github.com/RenzoVigiani/LabRem-Telecomunicaciones/blob/c2869733b8db76e671d302c234c771273dfe231c/Imagenes/wifi-vista-frontal.png?raw=true" width=1920>
@@ -104,3 +105,10 @@ Vista frontal
 Diagrama general
 
 <img alt = "Enlace Radio definido por Software" src="https://github.com/RenzoVigiani/LabRem-Telecomunicaciones/blob/c2869733b8db76e671d302c234c771273dfe231c/Imagenes/sdr.png?raw=true" width=1920>
+
+| |Diseños 3D ||
+|--|--|--|
+|Caja sistema elevación|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Caja_servo_1.jpg)|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Caja_servo_5.jpg)|
+|Soporte sistema azimut|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Soporte_caja_1.jpg)|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Soporte_caja_2.jpg)|
+|Sistema de movimiento Azimut-Elevación|![Caja servo Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Completo_4.jpg)|![Sistema de movimiento Azimut - Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/Completo_2.jpg)|
+|Visualización virtual|![Sistema de movimiento Azimut - Elevación](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Telecomunicaciones/main/Imagenes/teleco_3D/skp_diseños.png)||
