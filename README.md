@@ -1,5 +1,5 @@
 # Laboratorios de Telecomunicaciones
-En este readme se detallan las partes mas importantes del proyecto de remotización del laboratorio de telecomunicaciones, haciendo enfacís en el hardware.
+En este readme se detallan las partes mas importantes del proyecto de remotización del laboratorio de telecomunicaciones, haciendo énfacis en el hardware.
 
 ## Protocolo para los laboratorios de "Telecomunicaciones"
 Para poder establecer una comunicación entre al api web generada por el equipo de software del proyecto y los dispositivos en el laboratorio, establecemos un protocolo en común. (Este protocolo se aplica para el experimento de enlace wifi 2.4GHz)
