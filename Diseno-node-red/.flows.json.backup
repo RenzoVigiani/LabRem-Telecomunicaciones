@@ -1,8 +1,16 @@
 [
     {
+        "id": "6c7414b3f5ebb9a2",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "bc4fb389d4de2161",
         "type": "tab",
-        "label": "Principal",
+        "label": "Flow 1",
         "disabled": false,
         "info": "",
         "env": []
@@ -123,7 +131,8 @@
         "order": 2,
         "disp": true,
         "width": "6",
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "a8693af1ed732ccd",
@@ -133,7 +142,8 @@
         "order": 7,
         "disp": false,
         "width": "6",
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "c83e16537c45f368",
@@ -143,7 +153,8 @@
         "order": 4,
         "disp": true,
         "width": "6",
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "a4c87799322f977e",
@@ -153,7 +164,8 @@
         "order": 6,
         "disp": true,
         "width": "16",
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "448272e145e46a81",
@@ -163,7 +175,8 @@
         "order": 5,
         "disp": true,
         "width": "16",
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "1da480d9eb9773f1",
@@ -173,7 +186,8 @@
         "order": 1,
         "disp": false,
         "width": "27",
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "69d766c4475badde",
@@ -183,7 +197,8 @@
         "order": 3,
         "disp": true,
         "width": "6",
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "ce0f2688aa38dc08",
@@ -201,7 +216,8 @@
         "order": 8,
         "disp": true,
         "width": "24",
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "061b2edb7c43c818",
@@ -224,45 +240,6 @@
         "height": "1"
     },
     {
-        "id": "5ae5e09d8efb99d4",
-        "type": "ui_tab",
-        "name": "Telecomunicaciones",
-        "icon": "📶",
-        "order": 2,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "c3fbd1a53a1ede07",
-        "type": "ui_group",
-        "name": "Tipo de Laboratorio",
-        "tab": "5ae5e09d8efb99d4",
-        "order": 1,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
-        "id": "c63c7a8a043e98cf",
-        "type": "ui_group",
-        "name": "Visualización",
-        "tab": "5ae5e09d8efb99d4",
-        "order": 2,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
-        "id": "51a4612b14691630",
-        "type": "ui_group",
-        "name": "Parámetros",
-        "tab": "5ae5e09d8efb99d4",
-        "order": 3,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
         "id": "059369056ca71f6f",
         "type": "ui_numeric",
         "z": "bc4fb389d4de2161",
@@ -281,6 +258,7 @@
         "min": 0,
         "max": "3",
         "step": 1,
+        "className": "",
         "x": 390,
         "y": 60,
         "wires": [
@@ -320,6 +298,7 @@
         "tooltip": "",
         "color": "",
         "bgcolor": "",
+        "className": "",
         "icon": "",
         "payload": "",
         "payloadType": "str",
@@ -389,6 +368,7 @@
         "min": "20",
         "max": "978",
         "step": "5",
+        "className": "",
         "x": 390,
         "y": 120,
         "wires": [
@@ -416,6 +396,7 @@
         "min": "70",
         "max": "970",
         "step": "5",
+        "className": "",
         "x": 400,
         "y": 180,
         "wires": [
@@ -472,6 +453,7 @@
         "fwdInMessages": true,
         "resendOnRefresh": false,
         "templateScope": "local",
+        "className": "",
         "x": 930,
         "y": 360,
         "wires": [
@@ -513,6 +495,7 @@
         "tooltip": "",
         "color": "",
         "bgcolor": "",
+        "className": "",
         "icon": "",
         "payload": "",
         "payloadType": "str",
@@ -598,6 +581,7 @@
         "fwdInMessages": true,
         "resendOnRefresh": false,
         "templateScope": "local",
+        "className": "",
         "x": 1380,
         "y": 460,
         "wires": [
@@ -630,6 +614,7 @@
         "tooltip": "",
         "color": "",
         "bgcolor": "",
+        "className": "",
         "icon": "",
         "payload": "{\"group\":{\"show\":[\"Home_Mode\",\"Home_Funciones\",\"Home_Parametros-con\",\"Home_Consola\",\"Home_Convergente\",\"Home_Camara\"],\"hide\":[\"Home_Divergente\",\"Home_Parametros-div\"]}}",
         "payloadType": "json",
@@ -657,6 +642,7 @@
         "tooltip": "",
         "color": "",
         "bgcolor": "",
+        "className": "",
         "icon": "",
         "payload": "{\"group\":{\"show\":[\"Home_Mode\",\"Home_Funciones\",\"Home_Parametros-div\",\"Home_Consola\",\"Home_Divergente\",\"Home_Camara\"],\"hide\":[\"Home_Convergente\",\"Home_Parametros-con\"]}}",
         "payloadType": "json",
@@ -764,6 +750,7 @@
         "min": "120",
         "max": "970",
         "step": "5",
+        "className": "",
         "x": 920,
         "y": 120,
         "wires": [
@@ -791,6 +778,7 @@
         "min": "70",
         "max": "970",
         "step": "5",
+        "className": "",
         "x": 930,
         "y": 220,
         "wires": [
@@ -852,6 +840,7 @@
         "min": "120",
         "max": "970",
         "step": "5",
+        "className": "",
         "x": 930.0000171661377,
         "y": 166.00000095367432,
         "wires": [
@@ -896,6 +885,7 @@
         "min": 0,
         "max": "3",
         "step": 1,
+        "className": "",
         "x": 910,
         "y": 60,
         "wires": [
@@ -1012,6 +1002,7 @@
         "fwdInMessages": true,
         "resendOnRefresh": false,
         "templateScope": "local",
+        "className": "",
         "x": 880,
         "y": 520,
         "wires": [
@@ -1032,6 +1023,7 @@
         "tooltip": "",
         "color": "",
         "bgcolor": "",
+        "className": "",
         "icon": "",
         "payload": "",
         "payloadType": "str",
