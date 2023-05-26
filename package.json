@@ -1,0 +1,12 @@
+{
+    "name": "LabRem-Telecomunicaciones",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "dependencies": {},
+    "node-red": {
+        "settings": {
+            "flowFile": "Diseno-node-red/flows.json",
+            "credentialsFile": "Diseno-node-red/flows_cred.json"
+        }
+    }
+}
